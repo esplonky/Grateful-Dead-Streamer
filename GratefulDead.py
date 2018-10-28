@@ -1,5 +1,6 @@
 from internetarchive import *
 import json
+import time
 
 def getListOfDeadShows():
 
@@ -32,7 +33,7 @@ def getShowTitle():
 
     for i in showList:
         showID.append(i)
-
+        print i
     return showID
 
 #def selectShow(searchQuery):
@@ -78,17 +79,20 @@ def getShowMeta(showID):
 
 
     titleOfShow = showsStg['title']
-    subjectOfShow = showsStg['subject']
+    #subjectOfShow = showsStg['subject']
     yearOfShow = showsStg['year']
 
     #print titleOfShow + '\n' + subjectOfShow + '\n' + yearOfShow + '\n'
-
+    showMetaStg = [titleOfShow, yearOfShow]
+    #print showMetaStg
+    return showMetaStg
    # for a in setlistStg:
     #    print setlistStg[a]
 
-def getShowMetaTitle():
+def getShowMetaTitle(Year):
     showIdBuffer = getShowTitle()
     showMetaBuffer = {0:{}}
+
 
     x = 0
     for i in showIdBuffer:
@@ -101,8 +105,12 @@ def getShowMetaTitle():
         yearMeta = itemMeta['year']
         titleMeta = itemMeta['title']
 
-        showMetaBuffer[x] = (titleMeta, yearMeta)
+        if yearMeta == Year:
+
+            showMetaBuffer[x] = (titleMeta, yearMeta)
+
+
 
         x += 1
-    print showMetaBuffer
-getShowMetaTitle()
+
+getShowMetaTitle(1972)

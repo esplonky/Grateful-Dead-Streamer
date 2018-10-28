@@ -89,28 +89,25 @@ def getShowMeta(showID):
    # for a in setlistStg:
     #    print setlistStg[a]
 
-def getShowMetaTitle(Year):
+def getShowMetaTitle():
     showIdBuffer = getShowTitle()
-    showMetaBuffer = {0:{}}
 
+    showTitleStg = []
+    f = open('gdshowtitlelist', 'w')
 
-    x = 0
     for i in showIdBuffer:
         noBraces = str(i).replace('{\'showID\': \'', '')
         noEnd = noBraces.replace('\'}', '')
         item = get_item(noEnd)
 
-        itemMeta = item.metadata
+        itemMetaviewValues = item.metadata
+        titleMetaviewValues = itemMetaviewValues['title']
+        print titleMetaviewValues
+        f.write(titleMetaviewValues + '\n')
+        #showTitleStg.append
+    f.close()
+    #return showTitleStg
+getShowMetaTitle()
 
-        yearMeta = itemMeta['year']
-        titleMeta = itemMeta['title']
-
-        if yearMeta == Year:
-
-            showMetaBuffer[x] = (titleMeta, yearMeta)
 
 
-
-        x += 1
-
-getShowMetaTitle(1972)

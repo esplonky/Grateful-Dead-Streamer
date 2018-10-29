@@ -1,5 +1,6 @@
 from internetarchive import *
 import json
+import xml
 import time
 
 def getListOfDeadShows():
@@ -91,23 +92,49 @@ def getShowMeta(showID):
 
 def getShowMetaTitle():
     showIdBuffer = getShowTitle()
-
+    showMetaBuffer = {0:{}}
     showTitleStg = []
     f = open('gdshowtitlelist', 'w')
-
+    x = 0
     for i in showIdBuffer:
         noBraces = str(i).replace('{\'showID\': \'', '')
         noEnd = noBraces.replace('\'}', '')
         item = get_item(noEnd)
 
         itemMetaviewValues = item.metadata
-        titleMetaviewValues = itemMetaviewValues['title']
-        print titleMetaviewValues
-        f.write(titleMetaviewValues + '\n')
-        #showTitleStg.append
+        #titleMetaviewValues = itemMetaviewValues['title']
+
+
+        print itemMetaviewValues
+        #print titleMetaviewValues
+        showMetaBuffer[x] = itemMetaviewValues
+        #showTitleStg.append(titleMetaviewValues)
+
+        f.write(str(showMetaBuffer[x]) + '\n')
+        x += 1
     f.close()
     #return showTitleStg
-getShowMetaTitle()
 
+def displayShowMeta():
+    with open('gdshowtitlelist.json') as f:
+        fileLineStg = []
+        metaDict = {0: {}}
+        x = 0
+        for i in f:
+            #metaDict = x
+            metaDict[x] = str(i)
+        print metaDict
+        return metaDict
+
+
+
+def exploreShowMeta():
+    metaDict = displayShowMeta()
+
+    metaDictTitle = metaDict
+
+    print displayShowMeta()
+
+exploreShowMeta()
 
 

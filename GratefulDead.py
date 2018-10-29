@@ -116,25 +116,23 @@ def getShowMetaTitle():
     #return showTitleStg
 
 def displayShowMeta():
-    with open('gdshowtitlelist.json') as f:
+    with open('noBraces') as f:
         fileLineStg = []
-        metaDict = {0: {}}
         x = 0
+        m = open('gdshowdata', 'w')
+        metaDict = {0: {}}
+
         for i in f:
-            #metaDict = x
-            metaDict[x] = str(i)
-        print metaDict
+            metaDict[x] = f
+            metaDictRoot = metaDict[x]
+            metaTitle = metaDictRoot[]
+            encodeJSON = json.dumps(i)
+            metaDictEncode = encodeJSON
+
+            m.write(metaDictEncode)
+           # print metaDict[x]
+            print metaDictEncode
+            x+=1
         return metaDict
 
-
-
-def exploreShowMeta():
-    metaDict = displayShowMeta()
-
-    metaDictTitle = metaDict
-
-    print displayShowMeta()
-
-exploreShowMeta()
-
-
+displayShowMeta()

@@ -16,23 +16,28 @@ showYearStg = [1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972,
                1989, 1990, 1991, 1992, 1993, 1994, 1995]
 
 
-gratefulDeadCache = 'gdshowtitlelist'
-
-if not os.path.exists(gratefulDeadCache):
-
-    gratefulDeadShows = GratefulDead.getShowMetaTitle()
-
+gratefulDeadTitleCache = GratefulDead.loadXMLTitlesFromGDFile('title')
+gratefulDeadYearCache = GratefulDead.loadXMLTitlesFromGDFile('year')
+gratefulDeadIDCache = GratefulDead.loadXMLTitlesFromGDFile('identifier')
+gratefulDeadCache = GratefulDead.loadXMLTitlesFromGDFile('')
 
 
-for i in showYearStg:
-    listBoxYears.insert(END, i)
 
 
-selectedYear = map(int, listBoxYears.curselection())
+showStg = {0:{}}
+x = 0
+for i in gratefulDeadTitleCache:
+        listBoxShows.insert(END, i)
 
-listBoxYears.pack()
+        for m in gratefulDeadIDCache:
+            showStg[x] = i + ',' + m
 
-#listBoxYears.grid(row=0, column=0)
+
+listBoxShows.pack()
+
+listBoxShows.grid(row=0, column=0)
+
+
 
 root.mainloop()
 

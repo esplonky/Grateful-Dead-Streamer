@@ -1,7 +1,9 @@
 from internetarchive import *
 import json
-import xml
+import xml.etree.ElementTree as ET
+import random
 import time
+import os.path
 
 def getListOfDeadShows():
 
@@ -119,13 +121,12 @@ def displayShowMeta():
     with open('noBraces') as f:
         fileLineStg = []
         x = 0
-        m = open('gdshowdata', 'w')
+        m = open('gdshowtitles.json', 'w')
         metaDict = {0: {}}
 
         for i in f:
             metaDict[x] = f
             metaDictRoot = metaDict[x]
-            metaTitle = metaDictRoot[]
             encodeJSON = json.dumps(i)
             metaDictEncode = encodeJSON
 
@@ -135,4 +136,22 @@ def displayShowMeta():
             x+=1
         return metaDict
 
-displayShowMeta()
+
+
+def loadJsonFromGDFile():
+
+    with open('gdshowtitlelist.json') as json_data:
+        f = json.load(json_data)
+        json_data.close()
+        return(f)
+
+def loadXMLTitlesFromGDFile(showTag):
+    tree = ET.parse('gdshowtitlelist.xml')
+    root = tree.getroot()
+    showList = []
+    for i in tree.findall('shows'):
+        if i.tag == showTag:
+            showList.append(i.text)
+    return showList
+
+

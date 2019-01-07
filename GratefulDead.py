@@ -5,6 +5,8 @@ import random
 import time
 import os.path
 
+
+
 def getListOfDeadShows():
 
     #Search for all things groovy
@@ -96,7 +98,7 @@ def getShowMetaTitle():
     showIdBuffer = getShowTitle()
     showMetaBuffer = {0:{}}
     showTitleStg = []
-    f = open('gdshowtitlelist', 'w')
+
     x = 0
     for i in showIdBuffer:
         noBraces = str(i).replace('{\'showID\': \'', '')
@@ -145,13 +147,33 @@ def loadJsonFromGDFile():
         json_data.close()
         return(f)
 
-def loadXMLTitlesFromGDFile(showTag):
+
+
+
+def makeShowLink():
     tree = ET.parse('gdshowtitlelist.xml')
     root = tree.getroot()
-    showList = []
-    for i in tree.findall('shows'):
-        if i.tag == showTag:
-            showList.append(i.text)
-    return showList
+    showlist = []
+    for i in tree.findall('shows/identifier'):
+        #print i.text
+        identifierToLink = "https://archive.org/d/" + i.text
+        showlist.append(identifierToLink)
+    return showlist
+
+def getShowMetaData():
+    f = open('gdshowIDs.txt', 'r')
+    h = open('gdShowInternalMeta', 'w')
+    idBuffer = makeShowLink()
+    for i in idBuffer:
+        showIdentifierMeta = get_item(i)
+        metadata = showIdentifierMeta.metadata
+        print metadata
+
+
+       # metadataFilesStg = showIdentifierMeta.metadata['files']
+
+        #metacombine = metadataIdentifierStg + ', ' + metadataTitleStg + ', ' + metadataYearStg + ', ' + metadataTrackListStg + ', ' + metadataFilesStg
+        #metawrite = str(metadataStg) + '\n'
+        #h.write(metawrite)
 
 

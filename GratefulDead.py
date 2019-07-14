@@ -169,7 +169,7 @@ def getShowMetaData():
         metadata = showIdentifierMeta.metadata
         print metadata
 
-displayShowMeta()
+getShowMetaTitle()
 
 
        # metadataFilesStg = showIdentifierMeta.metadata['files']
